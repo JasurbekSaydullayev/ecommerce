@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%5a4vyv6vo2wu36_giy1by@n+)r5o*g=fp=*(tbm8)flr6m%m@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -127,8 +128,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'staticfiles/'
-
-STATICFILES_DIRS = [BASE_DIR / 'staticfiles/']
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / 'staticfiles/']
+else:
+    STATIC_ROOT = 'static/'
 
 CELERY_BROKER_URL = 'redis://redis:6379'
 # CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
