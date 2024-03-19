@@ -131,7 +131,7 @@ STATIC_URL = 'staticfiles/'
 if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / 'staticfiles/']
 else:
-    STATIC_ROOT = 'static/'
+    STATIC_ROOT = BASE_DIR / 'static/'
 
 CELERY_BROKER_URL = 'redis://redis:6379'
 # CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
