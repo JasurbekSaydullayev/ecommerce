@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Account detail {% endblock %}
+
+{% block content %}
+    <body>
+    <section class="section-conten padding-y" style="min-height:84vh">
+        <div class="card mx-auto" style="max-width: 700px; margin-top:30px;">
+            <div class="card-body">
+                <h4 class="card-title mb-4 text-center">Foydalanuvchi ma'lumotlar</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">O'zgartirish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    </body>
+{% endblock %}

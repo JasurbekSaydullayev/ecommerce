@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Cart {% endblock %}
+
+{% block content %}
+    <section class="section-content padding-y bg">
+        <div class="container">
+
+            <!-- ============================ COMPONENT 1 ================================= -->
+
+            <div class="row">
+                <aside class="col-lg-9">
+                    <div class="card">
+                        <table class="table table-borderless table-shopping-cart">
+                            <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col">Product</th>
+                                <th scope="col" width="120">Quantity</th>
+                                <th scope="col" width="120">Price</th>
+                                <th scope="col" class="text-right" width="200"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for orderitem in order.orderitem.all %}
+                                <tr>
+                                    <td>
+                                        <figure class="itemside align-items-center">
+                                            <div class="aside"><img src="" class="img-sm"></div>
+                                            <figcaption class="info">
+                                                <a class="title text-dark">{{ orderitem.product.title }}</a>
+                                                <p class="text-muted small">{{ orderitem.product.description }}</p>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                        <!-- col.// -->
+                                        <div class="col">
+                                            <div class="input-group input-spinner">
+                                                <div class="input-group-prepend">
+                                                    <a href="{% url 'order:reduce-quantity-item' orderitem.product.pk %}"
+                                                       class="btn btn-light" type="button" id="button-plus"><i
+                                                            class="fa fa-minus"></i></a>
+                                                </div>
+                                                <input type="text" class="form-control"
+                                                       value="{{ orderitem.quantity }}">
+                                                <div class="input-group-append">
+                                                    <a href="{% url 'order:increase-quantity-item' orderitem.product.pk %}"
+                                                       class="btn btn-light" type="button" id="button-minus"><i
+                                                            class="fa fa-plus"></i></a>
+                                                </div>
+                                            </div> <!-- input-group.// -->
+                                        </div> <!-- col.// -->
+                                    </td>
+                                    <td>
+                                        <div class="price-wrap">
+                                            <var class="price">${{ orderitem.total_price }}</var>
+                                            <small class="text-muted"> ${{ orderitem.product.price }} each </small>
+                                        </div> <!-- price-wrap .// -->
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="{% url 'order:remove-from-cart' orderitem.pk %}"
+                                           class="btn btn-danger"> Remove</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div> <!-- card.// -->
+
+                </aside> <!-- col.// -->
+                <aside class="col-lg-3">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <dl class="dlist-align">
+                                <dt>Total price:</dt>
+                                {% if not order.order_total_price %}
+                                    <dd class="text-right">$ 0</dd>
+                                {% else %}
+                                    <dd class="text-right">${{ order.order_total_price }}.00</dd>
+                                {% endif %}
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Discount:</dt>
+                                <dd class="text-right"> ${{ discount }}</dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Total:</dt>
+                                {% if total %}
+                                    <dd class="text-right text-dark b"><strong>${{ total }}</strong></dd>
+                                {% else %}
+                                    <dd class="text-right text-dark b"><strong>$0</strong></dd>
+                                {% endif %}
+                            </dl>
+                            <hr>
+                            <p class="text-center mb-3">
+                                <img src="{% static '/images/misc/payments.png' %}" height="26">
+                            </p>
+                            <a href="{% url 'order:checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
+                            <a href="{% url 'product:product_list' %}" class="btn btn-light btn-block">Continue Shopping</a>
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card.// -->
+
+                </aside> <!-- col.// -->
+
+
+            </div> <!-- row.// -->
+            <!-- ============================ COMPONENT 1 END .// ================================= -->
+
+        </div> <!-- container .//  -->
+    </section>
+
+{% endblock %}

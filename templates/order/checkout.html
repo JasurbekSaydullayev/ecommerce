@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Checkout {% endblock %}
+
+{% block content %}
+    <br/><br/>
+    <br/><br/>
+
+    {% if message %}
+        <h1 class="text-center">{{ message }}</h1>
+    {% else %}
+        <h3 class="text-center">Sotib olgan buyumlaringiz haqidagi ma'lumotlar emailingizga yuborildi <a
+                href="{% url 'product:product_list' %}" class="btn btn-secondary text-center">Bosh sahifaga qaytish</a>
+        </h3>
+    {% endif %}
+
+    
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+
+{% endblock %}
